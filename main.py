@@ -3,13 +3,16 @@
 # -------------------------------#
 
 # Starting position, zero-indexed.
-start = 1  # default = 1
+start = 1  # island = 1, dock = 1, garden = 1
 
 # Total number of moves.
-moves = 5  # default = 5
+moves = 5  # island = 5, dock = 5, garden = 3
+
+# Maximum amount of charge that can be stored by the console conductors.
+max_charge = 34  # island = 34, dock = 7, garden = 4
 
 # Amounts of charge accumulated in the console conductors when moving to each position.
-nodes = (7, -3, 10, 2)  # default = (7, -3, 10, 2)
+nodes = (7, -3, 10, 2)  # island = (7, -3, 10, 2), dock = (1, -2, 4), garden = (1, 2, -1)
 
 # -------------------------------#
 # ========== INTERNAL ========== #
@@ -28,17 +31,17 @@ class State:
 
     def iterate(self, state_list):
         for i in neighbors(self.pos):
-            state_list.append(State(self.score + nodes[i], i, self.path + [i]))
+            state_list.append(State(max(0, min(max_charge, self.score + nodes[i])), i, self.path + [i]))
+
+    def path_str(self):
+        path_str = '->'.join([str(pos) for pos in self.path])
+        return f'->{path_str}'
 
     def __lt__(self, other):
         return self.score < other.score or self.path < other.path
 
     def __hash__(self):
         return hash((self.score, self.pos, tuple(self.path)))
-
-    def __str__(self):
-        path_str = '->'.join([str(pos) for pos in self.path])
-        return f'->{path_str}'
 
 
 def main():
@@ -67,7 +70,7 @@ def main():
     final_state_dict = collections.OrderedDict(final_state_dict)
     for k in collections.OrderedDict(final_state_dict).keys():
         print(f'{k}:')
-        print('\n'.join(str(state) for state in final_state_dict[k]))
+        print('\n'.join(state.path_str() for state in final_state_dict[k]))
 
 
 if __name__ == '__main__':
