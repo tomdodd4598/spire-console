@@ -37,6 +37,9 @@ class State:
         path_str = '->'.join([str(pos) for pos in self.path])
         return f'->{path_str}'
 
+    def __eq__(self, other):
+        return self.score == other.score and self.pos == other.pos and self.path == other.path
+
     def __lt__(self, other):
         return self.score < other.score or self.path < other.path
 
