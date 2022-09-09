@@ -68,7 +68,7 @@ def main():
         final_state_dict[state.score] += [state]
 
     final_state_dict = collections.OrderedDict(final_state_dict)
-    for k in collections.OrderedDict(final_state_dict).keys():
+    for k in final_state_dict.keys():
         print(f'{k}:')
         print('\n'.join(state.path_str() for state in final_state_dict[k]))
 
