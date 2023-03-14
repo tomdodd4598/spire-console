@@ -1,11 +1,11 @@
 Conductor Console Solution Calculator
-====================================
+=====================================
 
 
 Summary
 -------
 
-A simple Python script which prints the possible final configurations of Spire's Conductor Console puzzle from Myst IV: Revelation.
+A simple Python script which prints the possible final configurations of Spire's conductor console puzzle from Myst IV: Revelation.
 
 Some settings exist to customise properties of the puzzle, but are currently set to match the large console on the far island.
 
